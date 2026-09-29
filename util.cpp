@@ -16,16 +16,34 @@ std::string convToLower(std::string src)
 std::set<std::string> parseStringToWords(string rawWords)
 {
 
+  set<string> words;
+  string currWord;
 
+  rawWords = convToLower(rawWords); //make all words lowercase
 
+  for(size_t i = 0; i < rawWords.size(); i++) {
 
+    unsigned char currChar = static_cast<unsigned char>(rawWords[i]);
 
+    if (isalnum(currChar)) { //use cctype class 
+      currWord +=rawWords[i];
+    }
+    else {
+      if (currWord.size() >= 2) { //must be greater than 2 (won't include 's)
+        words.insert(currWord);
+      }
 
+      currWord = ""; //reset word
+    }
+  }
 
+  if (currWord.size() >= 2) { //last word
+    words.insert(currWord);
+  }
 
+  return words;
 
-
-}
+} 
 
 /**************************************************
  * COMPLETED - You may use the following functions
